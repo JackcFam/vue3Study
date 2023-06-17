@@ -1,17 +1,49 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <ProductList/>
+  <hr class="mt-[100px]">
+  <DemoSlot>
+    <template #header="slotsHeader">
+      <div>
+        <h2 class="text-red-700">Đây là header {{ slotsHeader.nameSlotProps }}</h2>
+      </div>
+    </template>
+    <template #one>
+      <div>
+        Đây là section 1
+      </div>
+    </template>
+    <template #two>
+      <div>
+        Đây là section 2
+      </div>
+    </template>
+    <template #default>
+      <div>
+        Đây là default
+      </div>
+    </template>
+  </DemoSlot>
+  <DemoSlot v-slot="{text, count, number}">
+    {{ text }} and {{count}} and {{ number }}
+  </DemoSlot>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ProductList from "@/components/ProductList.vue";
+import DemoSlot from "./components/DemoSlot.vue";
+import { provide, ref } from 'vue';
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld
+    ProductList,
+    DemoSlot
+  },
+  setup() {
+    const nameShop = ref('DemoShop')
+    provide('NAME',nameShop)
+    return {}
   }
-}
+};
 </script>
 
 <style>
